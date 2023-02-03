@@ -1,24 +1,30 @@
-import {  Button, Heading, HStack, Text, VStack } from '@chakra-ui/react';
+import { Button, Heading, HStack, Text, VStack } from '@chakra-ui/react';
 import React from 'react';
 
-
-const Detail = ({ name, email, username, address, company }) => {
+const Detail = ({ data: { name, email, username, address, company } }) => {
+  const [isOpen, toogleOpen] = React.useState(false);
   return (
     <>
-      <VStack mt={'3rem'} mb={'3rem'}>
+      <VStack
+        mx={'auto'}
+        w={'70%'}
+        mt={'3rem'}
+        boxShadow={'0px 0px 2px '}
+        borderRadius="20px"
+        pb="20px"
+      >
         <HStack
-          w={'70%'}
-          h={'25vh'}
-          maxH={'35vh'}
+          h={'20vh'}
           justifyContent={'space-evenly'}
-          boxShadow={'0px 0px 2px '}
-          borderRadius={'20px'}
+          w={'100%'}
         >
           <VStack w={'15%'}>
             <Text fontSize={'1.5rem'} fontWeight={'bold'}>
               Name
             </Text>
-            <Text fontWeight={'bold'}>{name}</Text>
+            <Text fontWeight={'bold'} whiteSpace="nowrap">
+              {name}
+            </Text>
           </VStack>
           <VStack w={'15%'}>
             <Heading fontSize={'1.5rem'} size={'md'} fontWeight={'bold'}>
@@ -30,69 +36,78 @@ const Detail = ({ name, email, username, address, company }) => {
             <Heading fontSize={'1.5rem'} size={'md'} fontWeight={'bold'}>
               City
             </Heading>
-            <Text>{address}</Text>
+            <Text>{address.city}</Text>
           </VStack>
           <VStack w={'15%'}>
             <Heading fontSize={'1.5rem'} size={'md'} fontWeight={'bold'}>
               Company
             </Heading>
-            <Text>{company}</Text>
+            <Text>{company?.name}</Text>
           </VStack>
           <VStack w={'15%'}>
-            <Button colorScheme={'purple'} size={'sm'}>
-              View Details
+            <Button
+              colorScheme={'purple'}
+              size={'sm'}
+              onClick={() => toogleOpen(e => !e)}
+            >
+              {isOpen ? 'Close' : 'View'} Details
             </Button>
           </VStack>
         </HStack>
-        <HStack
-            w={'70%'}
-            h={'25vh'}
-            maxH={'35vh'}
-            justifyContent={'space-evenly'}
+        {isOpen && (
+          <HStack
+            w={'90%'}
+            h={'20vh'}
             boxShadow={'0px 0px 2px '}
-            borderRadius={'20px'}
+            borderRadius="20px"
+            pl={'1rem'}
           >
-            <VStack w={'50%'} alignItems={'space-evenly'}>
-              <HStack w={'50%'}  > 
-                <Text fontSize={'1.2rem'} fontWeight={'bold'}>
+            <VStack alignItems={'flex-start'} w={'20%'} m={'1rem'} p='1rem' >
+              <VStack alignItems={'flex-start'}>
+                <Text fontSize={'1.3rem'} fontWeight={'bold'} >
                   Name
                 </Text>
-                <Text fontWeight={'bold'}>{name}</Text>
-              </HStack>
-              <HStack>
-                <Text fontSize={'1.2rem'} fontWeight={'bold'}>
+                <Text fontWeight={'bold'} whiteSpace="nowrap" >
+                  {name}
+                </Text>
+              </VStack>
+              <VStack alignItems={'flex-start'}>
+                <Text fontSize={'1.3rem'} fontWeight={'bold'} >
                   Username
                 </Text>
                 <Text fontWeight={'bold'}>{username}</Text>
-              </HStack>
-              <HStack>
-                <Text fontSize={'1.2rem'} fontWeight={'bold'}>
+              </VStack>
+            </VStack>
+            <VStack alignItems={'flex-start'} w={'20%'} m={'1rem'} p='1rem'>
+            <VStack alignItems={'flex-start'} >
+                <Text fontSize={'1.3rem'} fontWeight={'bold'} >
                   Email
                 </Text>
                 <Text fontWeight={'bold'}>{email}</Text>
-              </HStack>
-            </VStack>
-            <VStack w={'50%'} alignItems={'space-evenly'} >
-              <HStack>
-                <Text fontSize={'1.2rem'} fontWeight={'bold'}>
+              </VStack>
+              <VStack alignItems={'flex-start'}>
+                <Text fontSize={'1.3rem'} fontWeight={'bold'} >
                   Street
                 </Text>
-                <Text fontWeight={'bold'}>Kuch Bhi</Text>
-              </HStack>
-              <HStack>
-                <Text fontSize={'1.2rem'} fontWeight={'bold'}>
+                <Text fontWeight={'bold'}>{address.street}</Text>
+              </VStack>
+            </VStack>
+            <VStack alignItems={'flex-start'} w={'20%'} m={'1rem'} p='1rem'>
+            <VStack alignItems={'flex-start'}>
+                <Text fontSize={'1.3rem'} fontWeight={'bold'} >
                   Suite
                 </Text>
-                <Text fontWeight={'bold'}>Kuch Bhi</Text>
-              </HStack>
-              <HStack>
-                <Text fontSize={'1.2rem'} fontWeight={'bold'}>
+                <Text fontWeight={'bold'}>{address.suite}</Text>
+              </VStack>
+              <VStack alignItems={'flex-start'}>
+                <Text fontSize={'1.3rem'} fontWeight={'bold'} >
                   Zipcode
                 </Text>
-                <Text fontWeight={'bold'}>Kuch Bhi</Text>
-              </HStack>
+                <Text fontWeight={'bold'}>{address.zipcode}</Text>
+              </VStack>
             </VStack>
           </HStack>
+        )}
       </VStack>
     </>
   );
